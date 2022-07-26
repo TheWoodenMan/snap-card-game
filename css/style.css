@@ -3,18 +3,54 @@
 /*******************************************/
 
 /* Box Model Hack */
-*{
+* {
   box-sizing: border-box;
+  text-align: center;
+}
+
+html {
+  font-size: 62.5%;
 }
 
 /******************************************
 /* LAYOUT
 /*******************************************/
-img{
-  display: block;
-  margin: 0 auto;
+
+body {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  font-size: 2rem;
+  justify-content: center;
+  align-items: center;
+  background-color: #00512c;
+  font-weight: bold;
+  color: white;
 }
 
+#cardPiles {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+img {
+  display: block;
+  margin: 2rem auto;
+}
+
+label {
+  align-self: flex-end;
+}
+
+button {
+  padding: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: black;
+  width: 12rem;
+  height: 8rem;
+}
 
 /******************************************
 /* ADDITIONAL STYLES

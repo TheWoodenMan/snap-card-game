@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-    	<meta charset="utf-8">
-    	<meta name="description" content="This is where your description goes">
-    	<meta name="keywords" content="one, two, three">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="a Basic Game to test Cards API" />
+    <meta name="keywords" content="cards, snap, game, api" />
 
-		<title>Title in the tab</title>
+    <title>Snap Game</title>
 
-		<!-- external CSS link -->
-		<link rel="stylesheet" href="css/normalize.css">
-		<link rel="stylesheet" href="css/style.css">
-	</head>
-	<body>
+    <!-- external CSS link -->
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <h1>Snap Game</h1>
+    <button type="button" id="drawButton" name="button">DRAW</button>
+    <button type="button" id="snapButton" name="button">SNAP!</button>
 
-		<h1>Which Pokemon?</h1>
-		<input type="text" name="" value="">
-		<button type="button" name="button">Get Pokemon</button>
+    <h2 id="turnDisplay">It's Your Turn</h2>
+    <section id="cardPiles">
+      <section class="cardWrapper clearfix">
+        <img id="pile1" src="" alt="" />
+        <label for="pil1">Mine</label>
+      </section>
+      <section class="cardWrapper clearfix">
+        <img id="pile2" src="" alt="" />
+        <label for="pile2">Yours</label>
+      </section>
+    </section>
+    <img src="" alt="" />
 
-		<h2>Name?</h2>
-		<img src="img/pokemon.jpeg" alt="">
-		<h3>Type?</h3>
-
-		<script type="text/javascript" src="js/main.js"></script>
-	</body>
+    <script type="text/javascript" src="js/main.js"></script>
+  </body>
 </html>
