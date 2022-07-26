@@ -5,6 +5,7 @@ let score = 0;
 
 const pile1 = document.querySelector("#pile1");
 const pile2 = document.querySelector("#pile2");
+const label = document.querySelectorAll("label");
 const turnDisplay = document.querySelector("#turnDisplay");
 
 let yourTurn = false;
@@ -63,6 +64,7 @@ function drawCard() {
   dealCardSound();
 
   if (yourTurn) {
+    label.forEach((label) => label.classList.remove("hidden"));
     turnDisplay.innerText = "Computer's Turn";
     compTurn = true;
     yourTurn = false;
