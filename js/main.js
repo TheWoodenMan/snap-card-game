@@ -23,8 +23,7 @@ let cardData;
 let snapPossible = false;
 
 let score = 0;
-score = localStorage.getItem(score);
-span.innerHTML = score;
+span.innerHTML = `Score: ${score}`;
 
 // Event listeners
 
@@ -44,8 +43,6 @@ function dealCardSound() {
 // Initial deck setup.
 function getFetch() {
   const url = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1";
-
-  span.innerHTML = `Score: ${localStorage.getItem(score)}`;
 
   fetch(url)
     .then((res) => res.json()) // parse response as JSON
@@ -133,7 +130,6 @@ function snapCheck() {
     turnDisplay.innerText = "SNAP! Congrats!";
     score++;
     document.querySelector("span").innerHTML = `Score: ${score}`;
-    localStorage.setItem(score, score);
     clearTimeout(compTurnTimer);
     clearTimeout(compSnapTimer);
     new Audio("sound/52322__stephsinger22__cheering.wav").play();
