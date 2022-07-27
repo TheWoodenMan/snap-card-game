@@ -10,9 +10,17 @@
     <!-- external CSS link -->
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <h1>Snap Game</h1>
+    <span>Score: 0</span>
+    <button type="button" id="resetButton" name="button">RESET</button>
     <button type="button" id="drawButton" name="button">DRAW</button>
     <button type="button" id="snapButton" name="button">SNAP!</button>
 
@@ -27,7 +35,12 @@
         <label for="pile2" class="hidden">Yours</label>
       </section>
     </section>
-    <img src="" alt="" />
+    <img
+      id="bigHand"
+      class="hidden"
+      src="/img/snaphand.webp"
+      alt="Big Hand Slapping the Table"
+    />
 
     <script type="text/javascript" src="js/main.js"></script>
   </body>

@@ -7,25 +7,37 @@ const pile1 = document.querySelector("#pile1");
 const pile2 = document.querySelector("#pile2");
 const label = document.querySelectorAll("label");
 const turnDisplay = document.querySelector("#turnDisplay");
+const bigHand = document.querySelector("#bigHand");
+
+let compTurnTimer;
+let compSnapTimer;
 
 let yourTurn = false;
-let yourCardValue = "";
+let yourCardValue = "100";
 
 let compTurn = true;
-let compCardValue = "";
+let compCardValue = "50";
 
 let activeDeck;
 let cardData;
+let snapPossible = false;
 
 // Event listeners
-window.addEventListener("load", getFetch);
-document.querySelector("#drawButton").addEventListener("click", drawCard);
-document.querySelector("#snapButton").addEventListener("click", snapCheck);
 
+// Draws the first card
+window.addEventListener("load", getFetch);
+
+// Buttons
+document.querySelector("#drawButton").addEventListener("click", checkTurn);
+document.querySelector("#snapButton").addEventListener("click", snapCheck);
+document.querySelector("#resetButton").addEventListener("click", resetAll);
+
+// Function to play a sound when a card is drawn
 function dealCardSound() {
   new Audio("sound/240777__f4ngy__dealing-card.wav").play();
 }
 
+// Initial deck setup.
 function getFetch() {
   const url = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1";
 
@@ -42,17 +54,38 @@ function getFetch() {
   drawCard();
 }
 
+// Draw button disabled unless it's your turn
+function checkTurn() {
+  if (yourTurn === true) {
+    drawCard();
+  }
+}
+
 function drawCard() {
+  // Large function that handles triggers and rules after a card is drawn
+
+  // Set active deck from local storage.
   activeDeck = localStorage.getItem(deckID);
   console.log(`Active Deck is ${activeDeck}`);
 
-  const drawUrl = `https://deckofcardsapi.com/api/deck/${activeDeck}/draw/?count=1`;
   // Draw the card using the api and display it in the DOM
+  const drawUrl = `https://deckofcardsapi.com/api/deck/${activeDeck}/draw/?count=1`;
+
   fetch(drawUrl)
     .then((res) => res.json()) // parse response as JSON
     .then((data) => {
+      // Set the drawn card data to a variable
       cardData = data.cards;
-      console.log(`Data on drawn card is ${cardData}`);
+      console.log(data.cards);
+      yourTurn
+        ? (compCardValue = cardData[0].value)
+        : (yourCardValue = cardData[0].value);
+      console.log(compCardValue);
+      console.log(yourCardValue);
+
+      yourCardValue === compCardValue ? startCompWin() : console.log("no snap");
+
+      // Divert the image to the correct pile depending on whose turn it is.
       compTurn
         ? (pile2.src = data.cards[0]["image"])
         : (pile1.src = data.cards[0]["image"]);
@@ -63,26 +96,60 @@ function drawCard() {
 
   dealCardSound();
 
+  // On any turn and if a snap is possible, start computer snap timer.
+
   if (yourTurn) {
+    // Remove the hidden pile but only on your turn after you draw a card
     label.forEach((label) => label.classList.remove("hidden"));
+
+    // Instructions to change to computers turn.
     turnDisplay.innerText = "Computer's Turn";
     compTurn = true;
     yourTurn = false;
-    localStorage.setItem(compCardValue, cardData[0].value);
-    console.log(localStorage.getItem(compCardValue));
+
+    !snapPossible ? startCompTurn() : console.log("snap possible");
   } else if (compTurn) {
     turnDisplay.innerText = "Your Turn";
     compTurn = false;
     yourTurn = true;
-    localStorage.setItem(yourCardValue, cardData[0].value);
-    console.log(localStorage.getItem(yourCardValue));
   }
+}
+
+function startCompTurn() {
+  compTurnTimer = window.setTimeout(
+    drawCard,
+    (Math.floor(Math.random() * 3) + 2) * 1000
+  );
 }
 
 function snapCheck() {
   if (yourCardValue === compCardValue) {
     turnDisplay.innerText = "SNAP! Congrats!";
     score++;
+    document.querySelector("span").innerHTML = `Score: ${score}`;
+    localStorage.setItem(score, score);
+    clearTimeout(compTurnTimer);
+    clearTimeout(compSnapTimer);
     new Audio("sound/52322__stephsinger22__cheering.wav").play();
   }
+}
+
+function startCompWin() {
+  clearTimeout(compTurnTimer);
+  compSnapTimer = window.setTimeout(
+    compWins,
+    (Math.floor(Math.random() * 7) + 2) * 1000
+  );
+}
+
+function compWins() {
+  turnDisplay.innerText = "HaHa I win, ya cheeky scrublord! OwO";
+  clearTimeout(compTurnTimer);
+  new Audio("sound/572606__melisandepope__haha01.wav").play();
+  bigHand.classList.remove("hidden");
+}
+
+function resetAll() {
+  localStorage.clear;
+  window.location.reload();
 }
