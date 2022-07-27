@@ -22,7 +22,16 @@ let activeDeck;
 let cardData;
 let snapPossible = false;
 
-let score = 0;
+let score;
+let playerScore;
+
+if (localStorage.getItem("playerScore")) {
+  score = localStorage.getItem("playerScore");
+} else {
+  score = 0;
+}
+
+console.log(playerScore);
 span.innerHTML = `Score: ${score}`;
 
 // Event listeners
@@ -70,6 +79,10 @@ function drawCard() {
   // Set active deck from local storage.
   activeDeck = localStorage.getItem(deckID);
   console.log(`Active Deck is ${activeDeck}`);
+
+  // Clear Comp win Condition if player draws while snap possible
+
+  clearTimeout(compTurnTimer);
 
   // Draw the card using the api and display it in the DOM
   const drawUrl = `https://deckofcardsapi.com/api/deck/${activeDeck}/draw/?count=1`;
@@ -129,6 +142,7 @@ function snapCheck() {
   if (yourCardValue === compCardValue) {
     turnDisplay.innerText = "SNAP! Congrats!";
     score++;
+    localStorage.setItem("playerScore", score);
     document.querySelector("span").innerHTML = `Score: ${score}`;
     clearTimeout(compTurnTimer);
     clearTimeout(compSnapTimer);
