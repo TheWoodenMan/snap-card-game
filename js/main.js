@@ -1,13 +1,13 @@
 // Variables
 
 let deckID;
-let score = 0;
 
 const pile1 = document.querySelector("#pile1");
 const pile2 = document.querySelector("#pile2");
 const label = document.querySelectorAll("label");
 const turnDisplay = document.querySelector("#turnDisplay");
 const bigHand = document.querySelector("#bigHand");
+const span = document.querySelector("span");
 
 let compTurnTimer;
 let compSnapTimer;
@@ -21,6 +21,10 @@ let compCardValue = "50";
 let activeDeck;
 let cardData;
 let snapPossible = false;
+
+let score = 0;
+score = localStorage.getItem(score);
+span.innerHTML = score;
 
 // Event listeners
 
@@ -40,6 +44,8 @@ function dealCardSound() {
 // Initial deck setup.
 function getFetch() {
   const url = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1";
+
+  span.innerHTML = `Score: ${localStorage.getItem(score)}`;
 
   fetch(url)
     .then((res) => res.json()) // parse response as JSON
@@ -150,6 +156,5 @@ function compWins() {
 }
 
 function resetAll() {
-  localStorage.clear;
   window.location.reload();
 }
