@@ -20,6 +20,7 @@ let compCardValue = "50";
 
 let activeDeck;
 let cardData;
+let cardCount = 0;
 let snapPossible = false;
 
 let score;
@@ -75,6 +76,13 @@ function checkTurn() {
 
 function drawCard() {
   // Large function that handles triggers and rules after a card is drawn
+
+  cardCount++;
+
+  if (cardCount >= 52) {
+    turnDisplay.innerText = "Out of Cards! Drawing a New Deck";
+    setTimeout(resetAll, 3000);
+  }
 
   // Set active deck from local storage.
   activeDeck = localStorage.getItem(deckID);
