@@ -1,6 +1,6 @@
 # SnapEasy snap-card-game
 
-This site was built from scratch using floats and a design/figma as a reference.
+This site was scratch built from the ground up
 
 Link to project: [https://level-ground-portfolio.netlify.app/](https://snapeasy.netlify.app/)
 ![snapeasy](https://user-images.githubusercontent.com/85075266/181392834-2e3f43d8-1353-44ff-a6fa-f3e5f6b18163.jpg)
