@@ -148,7 +148,7 @@ function startCompTurn() {
 
 function snapCheck() {
   if (yourCardValue === compCardValue) {
-    turnDisplay.innerText = "SNAP! Congrats!";
+    turnDisplay.innerText = "SNAP! Congrats, You Win!!";
     score++;
     localStorage.setItem("playerScore", score);
     document.querySelector("span").innerHTML = `Score: ${score}`;
